@@ -12,9 +12,15 @@
     <script src="bank_soal.js"></script>
     
     <style>
+        /*
+         * PERBAIKAN v5:
+         * Sebagian besar styling @apply telah dihapus dari sini dan dipindahkan
+         * langsung ke HTML (inline) untuk memastikan kompatibilitas browser.
+         * Hanya menyisakan hal-hal dasar.
+        */
         body {
             font-family: 'Inter', sans-serif;
-            /* Tema warna merah marun (Sesuai Kerangka v4) */
+            /* Tema warna merah marun (Sesuai Kerangka v5) */
             --main-color: #8B0000;
             --main-color-hover: #A52A2A;
             --main-color-light: #fde8e8;
@@ -37,77 +43,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Tombol Aksi Utama (Merah/Putih - Sesuai Kerangka v4) */
-        .btn {
-            @apply w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300;
-            background-color: var(--main-color);
-        }
-        .btn:hover {
-            background-color: var(--main-color-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .btn:disabled {
-            @apply bg-gray-400 cursor-not-allowed;
-            transform: translateY(0);
-            box-shadow: none;
-        }
-
-        /* Tombol Pilihan Jawaban (Putih/Hitam - Sesuai Kerangka v4) */
-        /* Ini adalah "kotak frame terpisah" yang Anda minta */
-        .btn-option {
-            @apply w-full text-left text-gray-800 bg-white border-2 border-gray-200 p-4 rounded-lg shadow-sm transition-all duration-200;
-            display: flex; /* Menggunakan flexbox untuk perataan */
-            align-items: flex-start; /* Meratakan konten di awal baris */
-        }
-        .btn-option:hover:not(:disabled) { /* Hanya aktif saat tidak disabled */
-            @apply border-gray-400;
-        }
-        /* State Saat Dipilih (Highlight Biru) */
-        .btn-option.selected {
-            @apply border-blue-500 bg-blue-50 ring-2 ring-blue-300;
-        }
-        .btn-option:disabled {
-            @apply opacity-70 cursor-not-allowed;
-        }
-        /* Penyesuaian untuk teks pilihan A, B, C, D (Perbaikan Layout) */
-        .btn-option .option-letter {
-            @apply font-bold mr-3; /* Beri jarak yang lebih baik */
-            min-width: 1.5em; /* Pastikan huruf A/B/C/D tidak bergeser */
-        }
-        .btn-option .option-text {
-            flex-grow: 1; /* Agar teks jawaban mengisi sisa ruang */
-            white-space: normal; /* Pastikan teks membungkus */
-        }
-        
-        /* Status Jawaban (Feedback) */
-        .btn-option.correct {
-            @apply bg-green-100 border-green-500 text-green-800 font-semibold;
-            animation: pulseCorrect 0.5s;
-        }
-        .btn-option.wrong {
-            @apply bg-red-100 border-red-500 text-red-800 font-semibold;
-            animation: pulseWrong 0.5s;
-        }
-        
-        @keyframes pulseCorrect {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-        @keyframes pulseWrong {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-        
         /* Input Fields */
         .form-input {
             @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2;
             --tw-ring-color: var(--main-color);
         }
 
-        /* Lencana Gimmick */
+        /* Lencana Gimmick (Tetap di style untuk gradien) */
         .badge {
             @apply w-32 h-32 rounded-full flex items-center justify-center text-white text-5xl font-bold shadow-xl mx-auto;
         }
@@ -118,7 +60,7 @@
         
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
+<body class="flex items-center justify-center min-h-screen p-4 bg-red-800">
 
     <!-- Kontainer Utama Aplikasi -->
     <div class="w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden">
@@ -140,7 +82,7 @@
                 
                 <div class="space-y-3 pt-4">
                     <div class="flex items-start">
-                        <input id="disclaimer" name="disclaimer" type="checkbox" class="h-5 w-5 rounded" style="color: var(--main-color);">
+                        <input id="disclaimer" name="disclaimer" type="checkbox" class="h-5 w-5 rounded text-red-800 focus:ring-red-700">
                         <label for="disclaimer" class="ml-3 text-sm text-gray-700">Saya setuju dengan syarat & ketentuan.</label>
                     </div>
                     <p class="text-xs text-gray-500 bg-gray-50 p-3 rounded-md border">
@@ -149,8 +91,10 @@
                 </div>
                 
                 <div class="pt-4">
-                    <!-- Tombol Aksi: Merah/Putih -->
-                    <button type="button" id="btn-register" class="btn" disabled>LANJUTKAN</button>
+                    <!-- Tombol Aksi: Merah/Putih (Styling Inline v5) -->
+                    <button type="button" id="btn-register" class="w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 bg-red-800 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none" disabled>
+                        LANJUTKAN
+                    </button>
                 </div>
             </form>
         </div>
@@ -191,8 +135,10 @@
              <p class="text-sm text-center text-gray-600 mt-4">Merchandise tambahan menanti untuk level <strong>Senior Engineer</strong> ke atas!</p>
             
             <div class="pt-8">
-                <!-- Tombol Aksi: Merah/Putih -->
-                <button type="button" id="btn-start-quiz" class="btn">MULAI KUIS</button>
+                <!-- Tombol Aksi: Merah/Putih (Styling Inline v5) -->
+                <button type="button" id="btn-start-quiz" class="w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 bg-red-800 hover:bg-red-700">
+                    MULAI KUIS
+                </button>
             </div>
         </div>
 
@@ -205,7 +151,7 @@
                     <span id="progress-text">Soal 1 / 15</span>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-2.5">
-                    <div id="progress-bar" class="h-2.5 rounded-full" style="width: 7%; background-color: var(--main-color);"></div>
+                    <div id="progress-bar" class="h-2.5 rounded-full bg-red-800" style="width: 7%;"></div>
                 </div>
             </div>
 
@@ -214,9 +160,13 @@
                 <h2 id="question-text" class="text-xl font-semibold text-gray-900 mb-6" style="min-height: 100px;">
                     Memuat pertanyaan...
                 </h2>
-                <!-- Kontainer Pilihan Jawaban (Vertikal - Sesuai Kerangka v4) -->
+                <!-- Kontainer Pilihan Jawaban (Vertikal) -->
                 <div id="answer-options" class="space-y-4"> 
-                    <!-- Pilihan jawaban (Putih/Hitam) akan dimasukkan oleh JS -->
+                    <!-- 
+                      PERBAIKAN v5:
+                      Tombol Pilihan (Putih/Hitam) dengan "Frame" dan "Highlight Biru"
+                      akan dimasukkan oleh JS menggunakan kelas-kelas Tailwind inline di bawah ini.
+                    -->
                 </div>
                 
                 <!-- Feedback Benar/Salah -->
@@ -227,16 +177,20 @@
 
             <!-- Tombol Aksi Kuis -->
             <div class="pt-8">
-                <!-- Tombol Aksi: Merah/Putih -->
-                <button type="button" id="btn-submit-answer" class="btn" disabled>SUBMIT JAWABAN</button>
-                <button type="button" id="btn-next-question" class="btn hidden">SOAL BERIKUTNYA</button>
+                <!-- Tombol Aksi: Merah/Putih (Styling Inline v5) -->
+                <button type="button" id="btn-submit-answer" class="w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 bg-red-800 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none" disabled>
+                    SUBMIT JAWABAN
+                </button>
+                <button type="button" id="btn-next-question" class="w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 bg-red-800 hover:bg-red-700 hidden">
+                    SOAL BERIKUTNYA
+                </button>
             </div>
         </div>
         
         <!-- Halaman 4: Hasil -->
         <div id="page-result" class="page p-8 md:p-12 text-center">
             <h1 class="text-2xl font-bold text-gray-900">Kuis Selesai,</h1>
-            <h2 id="result-user-name" class="text-3xl font-extrabold mb-6" style="color: var(--main-color);">[Nama Peserta]!</h2>
+            <h2 id="result-user-name" class="text-3xl font-extrabold mb-6 text-red-800">[Nama Peserta]!</h2>
 
             <!-- Lencana Hasil -->
             <div id="result-badge" class="badge badge-trainee mx-auto mb-4">T</div>
@@ -261,8 +215,8 @@
             </p>
 
             <div class="pt-8">
-                <!-- Tombol Aksi: Merah/Putih -->
-                <button type="button" id="btn-submit-score" class="btn">
+                <!-- Tombol Aksi: Merah/Putih (Styling Inline v5) -->
+                <button type="button" id="btn-submit-score" class="w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 bg-red-800 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed">
                     Kirim Skor & Lihat Leaderboard
                 </button>
             </div>
@@ -302,10 +256,10 @@
             </div>
 
             <div class="pt-8 text-center">
-                <!-- Tombol Aksi: Link Teks Merah -->
-                <button type="button" id="btn-restart-quiz" class="text-sm hover:underline" style="color: var(--main-color);">
-                    Ikuti Kuis Lagi (Data Akan Diperbarui)
-                </button>
+                <!-- 
+                  PERBAIKAN v5:
+                  Tombol "Ikuti Kuis Lagi" telah dihapus sesuai permintaan.
+                -->
             </div>
         </div>
     </div>
@@ -314,7 +268,7 @@
         // --- KONFIGURASI APLIKASI ---
         
         // !!! PENTING: Ganti dengan URL Google Apps Script Anda yang sudah di-deploy !!!
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwpMlNx1u8Y3WihbdfUsSFyXnUbNXSvZT8stWE9DDr8MYIL6RJyyYgm-USGX95MIpjk/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZhYgIXWtIjJ77Hobg5xNrwE3yBP3SVa-xcD6FffAACuw32fzLVEy8qQkbq_s58H7p/exec';
         
         const TOTAL_QUESTIONS = 15;
         const DEADLINE_DATE = new Date('2025-11-12T15:00:00');
@@ -332,7 +286,7 @@
         let startTime = null;
         let endTime = null;
         let finalDuration = 0;
-        let isAnswerSubmitted = false; // Mencegah klik ganda
+        let isAnswerSubmitted = false;
 
         // --- Selektor DOM ---
         const pages = document.querySelectorAll('.page');
@@ -369,8 +323,8 @@
         // Elemen Halaman Leaderboard
         const leaderboardPage = {
             countdown: document.getElementById('countdown-timer'),
-            body: document.getElementById('leaderboard-body'),
-            restartBtn: document.getElementById('btn-restart-quiz')
+            body: document.getElementById('leaderboard-body')
+            // PERBAIKAN v5: 'restartBtn' dihapus
         };
 
         // --- Fungsi Utama ---
@@ -390,11 +344,7 @@
             const isPerusahaanFilled = registerForm.perusahaan.value.trim() !== '';
             const isDisclaimerChecked = registerForm.disclaimer.checked;
             
-            if (isNamaFilled && isPerusahaanFilled && isDisclaimerChecked) {
-                registerForm.submitBtn.disabled = false;
-            } else {
-                registerForm.submitBtn.disabled = true;
-            }
+            registerForm.submitBtn.disabled = !(isNamaFilled && isPerusahaanFilled && isDisclaimerChecked);
         }
         
         function handleRegister() {
@@ -448,9 +398,11 @@
                 const optionLetter = String.fromCharCode(65 + index); // A, B, C, D
                 const button = document.createElement('button');
                 button.type = 'button';
-                button.className = 'btn-option';
-                // Struktur innerHTML (Sesuai Kerangka v4)
-                button.innerHTML = `<span class="option-letter">${optionLetter}.</span><span class="option-text">${option}</span>`;
+
+                // PERBAIKAN v5: Styling "Frame" (Putih/Hitam) ditambahkan langsung di sini
+                button.className = 'w-full text-left text-gray-800 bg-white border-2 border-gray-300 p-4 rounded-lg shadow-sm transition-all duration-200 flex items-start hover:border-gray-400 disabled:opacity-70 disabled:cursor-not-allowed';
+                
+                button.innerHTML = `<span class="font-bold mr-3 min-w-[1.5em]">${optionLetter}.</span><span class="flex-grow break-words">${option}</span>`;
                 button.onclick = () => selectAnswer(button, option);
                 quizPage.answerOptions.appendChild(button);
             });
@@ -460,24 +412,29 @@
             // Hanya izinkan pemilihan jika jawaban belum disubmit
             if (isAnswerSubmitted) return; 
 
-            // Hapus 'selected' dari semua tombol
-            document.querySelectorAll('.btn-option').forEach(btn => btn.classList.remove('selected'));
+            // Hapus 'selected' (Highlight Biru) dari semua tombol
+            document.querySelectorAll('#answer-options button').forEach(btn => {
+                // PERBAIKAN v5: Hapus kelas inline
+                btn.classList.remove('bg-blue-100', 'border-blue-500', 'ring-2', 'ring-blue-300');
+            });
             
-            // Tambah 'selected' ke tombol yang diklik
-            button.classList.add('selected');
+            // Tambah 'selected' (Highlight Biru) ke tombol yang diklik
+            // PERBAIKAN v5: Tambah kelas inline
+            button.classList.add('bg-blue-100', 'border-blue-500', 'ring-2', 'ring-blue-300');
+            
             selectedAnswer = answer; // Simpan teks jawaban
             selectedAnswerButton = button; // Simpan referensi tombol
             quizPage.submitBtn.disabled = false;
         }
 
         function submitAnswer() {
-            if (!selectedAnswerButton || isAnswerSubmitted) return; // Pastikan ada jawaban & belum disubmit
+            if (!selectedAnswerButton || isAnswerSubmitted) return; 
 
-            isAnswerSubmitted = true; // Tandai jawaban sudah disubmit
-            quizPage.submitBtn.disabled = true; // Nonaktifkan tombol submit
+            isAnswerSubmitted = true; 
+            quizPage.submitBtn.disabled = true; 
 
             // Nonaktifkan semua pilihan
-            document.querySelectorAll('.btn-option').forEach(btn => {
+            document.querySelectorAll('#answer-options button').forEach(btn => {
                 btn.disabled = true;
             });
 
@@ -491,11 +448,13 @@
             
             if (selectedAnswer === correctAnwer) {
                 userScore++;
-                selectedAnswerButton.classList.add('correct');
+                // PERBAIKAN v5: Tambah kelas inline untuk "Correct" (Hijau)
+                selectedAnswerButton.classList.add('bg-green-100', 'border-green-500', 'text-green-800', 'font-semibold');
                 quizPage.feedbackText.textContent = 'BENAR!';
                 quizPage.feedbackText.style.color = 'var(--correct-color)';
             } else {
-                selectedAnswerButton.classList.add('wrong');
+                // PERBAIKAN v5: Tambah kelas inline untuk "Wrong" (Merah)
+                selectedAnswerButton.classList.add('bg-red-100', 'border-red-500', 'text-red-800', 'font-semibold');
                 quizPage.feedbackText.textContent = 'SALAH!';
                 quizPage.feedbackText.style.color = 'var(--wrong-color)';
             }
@@ -547,7 +506,7 @@
                 badgeLetter = 'J';
             }
 
-            resultPage.badge.className = `badge ${badgeClass}`;
+            resultPage.badge.className = `badge ${badgeClass} mx-auto mb-4`;
             resultPage.badge.textContent = badgeLetter;
             resultPage.levelText.textContent = `Level Anda: ${level}`;
             
@@ -591,10 +550,13 @@
             }
             
             // Setelah mengirim, muat leaderboard
-            await loadLeaderboard();
-            showPage('page-leaderboard');
-            btn.disabled = false;
-            btn.textContent = 'Kirim Skor & Lihat Leaderboard';
+            // Beri jeda 1 detik agar Google Sheet sempat memproses data
+            setTimeout(() => {
+                loadLeaderboard();
+                showPage('page-leaderboard');
+                btn.disabled = false;
+                btn.textContent = 'Kirim Skor & Lihat Leaderboard';
+            }, 1000); 
         }
 
         async function loadLeaderboard() {
@@ -609,7 +571,7 @@
                 
                 leaderboardPage.body.innerHTML = ''; // Kosongkan tabel
                 
-                if (data.length === 0) {
+                if (!data || data.length === 0) {
                     leaderboardPage.body.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-500">Belum ada data. Jadilah yang pertama!</td></tr>`;
                     return;
                 }
@@ -620,9 +582,9 @@
                     tr.className = 'border-b hover:bg-gray-50';
                     
                     // Highlight baris user saat ini
-                    if (row.name === currentUser.nama && row.duration.toFixed(1) === finalDuration.toFixed(1)) {
+                    if (row.name === currentUser.nama && Math.abs(row.duration - finalDuration) < 0.1) {
+                        tr.className += ' bg-red-100 font-bold';
                         tr.style.backgroundColor = 'var(--main-color-light)';
-                        tr.style.fontWeight = 'bold';
                     }
                     
                     tr.innerHTML = `
@@ -630,7 +592,7 @@
                         <td class="p-3">${row.name}</td>
                         <td class="p-3">${row.company}</td>
                         <td class="p-3">${row.score} / ${TOTAL_QUESTIONS}</td>
-                        <td class="p-3">${row.duration.toFixed(1)}s</td>
+                        <td class="p-3">${Number(row.duration).toFixed(1)}s</td>
                     `;
                     leaderboardPage.body.appendChild(tr);
                 });
@@ -641,11 +603,6 @@
             }
         }
         
-        function restartQuiz() {
-            // Cukup kembali ke Halaman 1
-            showPage('page-register');
-        }
-
         // --- Inisialisasi Aplikasi ---
         document.addEventListener('DOMContentLoaded', () => {
             // Event Listeners Halaman 1
@@ -664,8 +621,7 @@
             // Event Listeners Halaman 4
             resultPage.submitScoreBtn.addEventListener('click', submitScoreAndShowLeaderboard);
 
-            // Event Listeners Halaman 5
-            leaderboardPage.restartBtn.addEventListener('click', restartQuiz);
+            // PERBAIKAN v5: Event listener untuk 'restartBtn' dihapus
         });
 
     </script>

@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuis - Seberapa Engineer Anda?</title>
-    <!-- 1. Impor TailwindCSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 2. Impor Font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- 3. Impor Bank Soal -->
-    <script src="bank_soal.js"></script>
+    <!-- 1. Impor TailwindCSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- 2. Impor Font Inter --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- 3. Impor Bank Soal --><script src="bank_soal.js"></script>
     
     <style>
         body {
@@ -53,18 +50,29 @@
             box-shadow: none;
         }
 
-        /* Tombol Pilihan Jawaban */
+        /* Tombol Pilihan Jawaban (perbaikan layout dan interaksi) */
         .btn-option {
             @apply w-full text-left text-gray-800 bg-white border-2 border-gray-200 p-4 rounded-lg shadow-sm transition-all duration-200;
+            display: flex; /* Menggunakan flexbox untuk perataan yang lebih baik */
+            align-items: flex-start; /* Meratakan konten di awal baris */
         }
-        .btn-option:hover {
+        .btn-option:hover:not(:disabled) { /* Hanya aktif saat tidak disabled */
             @apply border-gray-400;
         }
         .btn-option.selected {
             @apply border-blue-500 bg-blue-50 ring-2 ring-blue-300;
         }
         .btn-option:disabled {
-            @apply opacity-70 cursor-not-allowed;
+            @apply opacity-70 cursor-not-allowed; /* Opacity saat disabled */
+        }
+        /* Penyesuaian untuk teks pilihan A, B, C, D */
+        .btn-option .option-letter {
+            @apply font-bold mr-3; /* Beri jarak yang lebih baik */
+            min-width: 1.5em; /* Pastikan huruf A/B/C/D tidak bergeser */
+        }
+        .btn-option .option-text {
+            flex-grow: 1; /* Agar teks jawaban mengisi sisa ruang */
+            white-space: normal; /* Pastikan teks membungkus */
         }
         
         /* Status Jawaban */
@@ -107,11 +115,9 @@
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
 
-    <!-- Kontainer Utama Aplikasi -->
-    <div class="w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden">
+    <!-- Kontainer Utama Aplikasi --><div class="w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden">
         
-        <!-- Halaman 1: Registrasi -->
-        <div id="page-register" class="page active p-8 md:p-12">
+        <!-- Halaman 1: Registrasi --><div id="page-register" class="page active p-8 md:p-12">
             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-4">SEBERAPA ENGINEER ANDA?</h1>
             <p class="text-center text-gray-600 mb-8">Selamat datang di kuis PT Multibangun Rekatama Patria!</p>
             
@@ -141,8 +147,7 @@
             </form>
         </div>
 
-        <!-- Halaman 2: Peraturan -->
-        <div id="page-rules" class="page p-8 md:p-12">
+        <!-- Halaman 2: Peraturan --><div id="page-rules" class="page p-8 md:p-12">
             <h1 class="text-3xl font-extrabold text-gray-900 text-center mb-6">Peraturan & Level Engineer</h1>
             <div class="space-y-4 text-gray-700">
                 <p>Anda akan menghadapi <strong>15 soal</strong> pilihan ganda acak.</p>
@@ -151,8 +156,7 @@
                 <p>Skor akhir Anda akan menentukan <strong>Level Engineer</strong> Anda.</p>
             </div>
 
-            <!-- Gimmick Badges -->
-            <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <!-- Gimmick Badges --><div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 <div>
                     <div class="badge badge-master">M</div>
                     <h3 class="font-bold mt-2">Master</h3>
@@ -181,10 +185,8 @@
             </div>
         </div>
 
-        <!-- Halaman 3: Kuis -->
-        <div id="page-quiz" class="page p-8 md:p-12">
-            <!-- Progress Bar -->
-            <div class="mb-4">
+        <!-- Halaman 3: Kuis --><div id="page-quiz" class="page p-8 md:p-12">
+            <!-- Progress Bar --><div class="mb-4">
                 <div class="flex justify-between text-sm font-medium text-gray-700 mb-1">
                     <span>Progress</span>
                     <span id="progress-text">Soal 1 / 15</span>
@@ -194,35 +196,28 @@
                 </div>
             </div>
 
-            <!-- Konten Soal -->
-            <div class="mt-8">
+            <!-- Konten Soal --><div class="mt-8">
                 <h2 id="question-text" class="text-xl font-semibold text-gray-900 mb-6" style="min-height: 100px;">
                     Memuat pertanyaan...
                 </h2>
                 <div id="answer-options" class="space-y-3">
-                    <!-- Pilihan jawaban akan dimasukkan oleh JS -->
-                </div>
+                    <!-- Pilihan jawaban akan dimasukkan oleh JS --></div>
                 
-                <!-- Feedback Benar/Salah -->
-                <div id="feedback-text" class="mt-4 text-center text-2xl font-bold h-8">
-                    <!-- "BENAR!" atau "SALAH!" -->
-                </div>
+                <!-- Feedback Benar/Salah --><div id="feedback-text" class="mt-4 text-center text-2xl font-bold h-8">
+                    <!-- "BENAR!" atau "SALAH!" --></div>
             </div>
 
-            <!-- Tombol Aksi Kuis -->
-            <div class="pt-8">
+            <!-- Tombol Aksi Kuis --><div class="pt-8">
                 <button type="button" id="btn-submit-answer" class="btn" disabled>SUBMIT JAWABAN</button>
                 <button type="button" id="btn-next-question" class="btn hidden">SOAL BERIKUTNYA</button>
             </div>
         </div>
         
-        <!-- Halaman 4: Hasil -->
-        <div id="page-result" class="page p-8 md:p-12 text-center">
+        <!-- Halaman 4: Hasil --><div id="page-result" class="page p-8 md:p-12 text-center">
             <h1 class="text-2xl font-bold text-gray-900">Kuis Selesai,</h1>
             <h2 id="result-user-name" class="text-3xl font-extrabold mb-6" style="color: var(--main-color);">[Nama Peserta]!</h2>
 
-            <!-- Lencana Hasil -->
-            <div id="result-badge" class="badge badge-trainee mx-auto mb-4">T</div>
+            <!-- Lencana Hasil --><div id="result-badge" class="badge badge-trainee mx-auto mb-4">T</div>
             <h3 id="result-level-text" class="text-2xl font-bold text-gray-800">Level Anda: ENGINEER TRAINEE</h3>
             
             <div class="my-6 bg-gray-50 p-4 rounded-lg">
@@ -238,8 +233,7 @@
                 </div>
             </div>
             
-            <!-- Teks Hasil Kustom -->
-            <p id="result-custom-text" class="text-base text-gray-700 px-4">
+            <!-- Teks Hasil Kustom --><p id="result-custom-text" class="text-base text-gray-700 px-4">
                 Memuat hasil...
             </p>
 
@@ -250,18 +244,15 @@
             </div>
         </div>
 
-        <!-- Halaman 5: Leaderboard -->
-        <div id="page-leaderboard" class="page p-8 md:p-12">
+        <!-- Halaman 5: Leaderboard --><div id="page-leaderboard" class="page p-8 md:p-12">
             <h1 class="text-3xl font-extrabold text-gray-900 text-center mb-6">Leaderboard</h1>
             
-            <!-- Timer Hitung Mundur -->
-            <div class="text-center bg-yellow-100 border border-yellow-300 text-yellow-800 p-4 rounded-lg mb-6">
+            <!-- Timer Hitung Mundur --><div class="text-center bg-yellow-100 border border-yellow-300 text-yellow-800 p-4 rounded-lg mb-6">
                 <h3 class="font-bold">Batas Waktu Pemenang Hadiah:</h3>
                 <div id="countdown-timer" class="text-xl font-bold">12 November 2025, 15:00 WIB</div>
             </div>
             
-            <!-- Tabel Leaderboard -->
-            <div class="overflow-x-auto border rounded-lg">
+            <!-- Tabel Leaderboard --><div class="overflow-x-auto border rounded-lg">
                 <table class="w-full text-left">
                     <thead class="bg-gray-50 border-b">
                         <tr>
@@ -273,8 +264,7 @@
                         </tr>
                     </thead>
                     <tbody id="leaderboard-body">
-                        <!-- Data akan diisi oleh JS -->
-                        <tr>
+                        <!-- Data akan diisi oleh JS --><tr>
                             <td colspan="5" class="p-8 text-center text-gray-500">
                                 Memuat data leaderboard...
                             </td>
@@ -308,7 +298,8 @@
         let quizQuestions = [];
         let currentQuestionIndex = 0;
         let userScore = 0;
-        let selectedAnswer = null;
+        let selectedAnswer = null; // Menyimpan teks jawaban yang dipilih
+        let selectedAnswerButton = null; // Menyimpan referensi DOM tombol yang dipilih
         let startTime = null;
         let endTime = null;
         let finalDuration = 0;
@@ -389,6 +380,7 @@
             currentQuestionIndex = 0;
             userScore = 0;
             selectedAnswer = null;
+            selectedAnswerButton = null;
             
             // Ambil dan acak soal dari bank_soal.js
             const shuffledQuestions = [...questionBank].sort(() => 0.5 - Math.random());
@@ -404,6 +396,7 @@
         function displayQuestion() {
             // Reset feedback dan tombol
             selectedAnswer = null;
+            selectedAnswerButton = null;
             quizPage.feedbackText.textContent = '';
             quizPage.submitBtn.disabled = true;
             quizPage.submitBtn.classList.remove('hidden');
@@ -424,23 +417,27 @@
                 const button = document.createElement('button');
                 button.type = 'button';
                 button.className = 'btn-option';
-                button.innerHTML = `<span class="font-bold mr-2">${optionLetter}.</span> ${option}`;
+                // Struktur innerHTML diubah untuk flexbox dan spasi yang lebih baik
+                button.innerHTML = `<span class="option-letter">${optionLetter}.</span><span class="option-text">${option}</span>`;
                 button.onclick = () => selectAnswer(button, option);
                 quizPage.answerOptions.appendChild(button);
             });
         }
         
-        function selectAnswer(selectedButton, answer) {
+        function selectAnswer(button, answer) {
             // Hapus 'selected' dari semua tombol
             document.querySelectorAll('.btn-option').forEach(btn => btn.classList.remove('selected'));
             
             // Tambah 'selected' ke tombol yang diklik
-            selectedButton.classList.add('selected');
-            selectedAnswer = answer;
+            button.classList.add('selected');
+            selectedAnswer = answer; // Simpan teks jawaban
+            selectedAnswerButton = button; // Simpan referensi tombol
             quizPage.submitBtn.disabled = false;
         }
 
         function submitAnswer() {
+            if (!selectedAnswerButton) return; // Pastikan ada jawaban yang dipilih
+
             // Nonaktifkan semua pilihan
             document.querySelectorAll('.btn-option').forEach(btn => {
                 btn.disabled = true;
@@ -453,18 +450,22 @@
             // Cek jawaban
             const q = quizQuestions[currentQuestionIndex];
             const correctAnwer = q.answer;
-            const selectedButton = document.querySelector('.btn-option.selected');
-
+            
             if (selectedAnswer === correctAnwer) {
                 userScore++;
-                selectedButton.classList.add('correct');
+                selectedAnswerButton.classList.add('correct');
                 quizPage.feedbackText.textContent = 'BENAR!';
                 quizPage.feedbackText.style.color = 'var(--correct-color)';
             } else {
-                selectedButton.classList.add('wrong');
+                selectedAnswerButton.classList.add('wrong');
                 quizPage.feedbackText.textContent = 'SALAH!';
                 quizPage.feedbackText.style.color = 'var(--wrong-color)';
-                // Sesuai permintaan: tidak menunjukkan jawaban yang benar
+                // (Opsional: Bisa tambahkan highlight jawaban benar di sini jika diinginkan)
+                // const correctOptionButton = Array.from(document.querySelectorAll('.btn-option'))
+                //     .find(btn => btn.querySelector('.option-text').textContent === correctAnwer);
+                // if (correctOptionButton) {
+                //     correctOptionButton.classList.add('correct');
+                // }
             }
             
             // Ubah tombol Next di soal terakhir

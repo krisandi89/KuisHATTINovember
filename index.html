@@ -287,6 +287,7 @@
         let endTime = null;
         let finalDuration = 0;
         let isAnswerSubmitted = false;
+        let leaderboardInterval = null; // <!-- TAMBAHKAN BARIS INI -->
 
         // --- Selektor DOM ---
         const pages = document.querySelectorAll('.page');
@@ -331,10 +332,22 @@
 
         // Fungsi untuk berpindah halaman
         function showPage(pageId) {
+            // <!-- TAMBAHAN: Hentikan interval leaderboard jika sedang berjalan -->
+            if (leaderboardInterval) {
+                clearInterval(leaderboardInterval);
+                leaderboardInterval = null;
+            }
+
             pages.forEach(page => {
                 page.classList.remove('active');
             });
             document.getElementById(pageId).classList.add('active');
+            
+            // <!-- TAMBAHAN: Mulai interval jika kita ada di halaman leaderboard -->
+            if (pageId === 'page-leaderboard') {
+                loadLeaderboard(); // Muat data pertama kali
+                leaderboardInterval = setInterval(loadLeaderboard, 15000); // Refresh setiap 15 detik
+            }
         }
 
         // --- Halaman 1: Logika Registrasi ---
@@ -552,8 +565,11 @@
             // Setelah mengirim, muat leaderboard
             // Beri jeda 1 detik agar Google Sheet sempat memproses data
             setTimeout(() => {
-                loadLeaderboard();
-                showPage('page-leaderboard');
+                // <!-- MODIFIKASI: Cukup panggil showPage. -->
+                // <!-- loadLeaderboard() dan interval akan di-trigger oleh showPage -->
+                showPage('page-leaderboard'); 
+                // loadLeaderboard(); // <-- HAPUS BARIS INI
+                // showPage('page-leaderboard'); // <-- HAPUS BARIS INI
                 btn.disabled = false;
                 btn.textContent = 'Kirim Skor & Lihat Leaderboard';
             }, 1000); 
@@ -627,4 +643,5 @@
     </script>
 </body>
 </html>
+
 

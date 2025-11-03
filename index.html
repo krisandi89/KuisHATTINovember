@@ -68,7 +68,7 @@
         <!-- Halaman 1: Registrasi -->
         <div id="page-register" class="page active p-8 md:p-12">
             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-4">SEBERAPA ENGINEER ANDA?</h1>
-            <p class="text-center text-gray-600 mb-8">Selamat datang di kuis Multibangun Engineering Hub</p>
+            <p class="text-center text-gray-600 mb-8">Selamat datang di kuis PT Multibangun Rekatama Patria!</p>
             
             <form id="register-form" class="space-y-6">
                 <div>
@@ -81,13 +81,13 @@
                 </div>
                 
                 <div class="space-y-3 pt-4">
-                    <div class="flex items-start">
-                        <input id="disclaimer" name="disclaimer" type="checkbox" class="h-5 w-5 rounded text-red-800 focus:ring-red-700">
-                        <label for="disclaimer" class="ml-3 text-sm text-gray-700">Saya setuju dengan syarat & ketentuan.</label>
-                    </div>
                     <p class="text-xs text-gray-500 bg-gray-50 p-3 rounded-md border">
                         Pemenang adalah yang berhasil mendapatkan peringkat 1 pada leaderboard hingga tanggal 12 November 2025 pukul 15.00 WIB dan berada di tempat (dapat dihubungi). Pemenang bersedia untuk mengurus dan membayar biaya angkut hadiah sepeda listrik yang ada pada booth Multibangun Engineering Hub. Peserta hanya dapat mengikuti Quiz ini sebanyak 1x.
                     </p>
+                    <div class="flex items-start pt-2">
+                        <input id="disclaimer" name="disclaimer" type="checkbox" class="h-5 w-5 rounded text-red-800 focus:ring-red-700">
+                        <label for="disclaimer" class="ml-3 text-sm text-gray-700">Saya sudah membaca dan setuju</label>
+                    </div>
                 </div>
                 
                 <div class="pt-4">
@@ -117,22 +117,22 @@
                     <p class="text-sm text-gray-600">Skor 93-100</p>
                 </div>
                 <div>
-                    <div class="badge badge-senior">S</div>
-                    <h3 class="font-bold mt-2">Senior</h3>
+                    <div class="badge badge-senior">P</div>
+                    <h3 class="font-bold mt-2">Pro</h3>
                     <p class="text-sm text-gray-600">Skor 80-86</p>
                 </div>
                 <div>
-                    <div class="badge badge-junior">J</div>
-                    <h3 class="font-bold mt-2">Junior</h3>
+                    <div class="badge badge-junior">R</div>
+                    <h3 class="font-bold mt-2">Rookie</h3>
                     <p class="text-sm text-gray-600">Skor 53-73</p>
                 </div>
                 <div>
-                    <div class="badge badge-trainee">T</div>
-                    <h3 class="font-bold mt-2">Trainee</h3>
+                    <div class="badge badge-trainee">N</div>
+                    <h3 class="font-bold mt-2">Newbie</h3>
                     <p class="text-sm text-gray-600">Skor &lt; 53</p>
                 </div>
             </div>
-             <p class="text-sm text-center text-gray-600 mt-4">Merchandise tambahan menanti untuk level <strong>Senior Engineer</strong> ke atas!</p>
+             <p class="text-sm text-center text-gray-600 mt-4">Merchandise tambahan menanti untuk level <strong>Pro Engineer</strong> ke atas!</p>
             
             <div class="pt-8">
                 <!-- Tombol Aksi: Merah/Putih (Styling Inline v5) -->
@@ -228,7 +228,7 @@
             
             <!-- Timer Hitung Mundur -->
             <div class="text-center bg-yellow-100 border border-yellow-300 text-yellow-800 p-4 rounded-lg mb-6">
-                <h3 class="font-bold">Batas Waktu Pengumpulan Kuis:</h3>
+                <h3 class="font-bold">Batas Waktu Pemenang Hadiah:</h3>
                 <div id="countdown-timer" class="text-xl font-bold">12 November 2025, 15:00 WIB</div>
             </div>
             
@@ -268,7 +268,7 @@
         // --- KONFIGURASI APLIKASI ---
         
         // !!! PENTING: Ganti dengan URL Google Apps Script Anda yang sudah di-deploy !!!
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcrR2PosJmm-p_V8hTqS5k17wp4ubt1m8VOEFHSd-ShHDfdw9OmX8xNNuzWUQSCRs/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_ANDA/exec';
         
         const TOTAL_QUESTIONS = 15;
         const DEADLINE_DATE = new Date('2025-11-12T15:00:00');
@@ -501,22 +501,22 @@
             resultPage.durationText.textContent = `${finalDuration.toFixed(1)}s`;
 
             // Logika Badge dan Teks Kustom
-            let level = 'Engineer Trainee';
+            let level = 'Newbie Engineer';
             let badgeClass = 'badge-trainee';
-            let badgeLetter = 'T';
+            let badgeLetter = 'N';
             
             if (scorePercent >= 93) { // 14-15 benar
                 level = 'Master Engineer';
                 badgeClass = 'badge-master';
                 badgeLetter = 'M';
             } else if (scorePercent >= 80) { // 12-13 benar
-                level = 'Senior Engineer';
+                level = 'Pro Engineer';
                 badgeClass = 'badge-senior';
-                badgeLetter = 'S';
+                badgeLetter = 'P';
             } else if (scorePercent >= 53) { // 8-11 benar
-                level = 'Junior Engineer';
+                level = 'Rookie Engineer';
                 badgeClass = 'badge-junior';
-                badgeLetter = 'J';
+                badgeLetter = 'R';
             }
 
             resultPage.badge.className = `badge ${badgeClass} mx-auto mb-4`;
@@ -527,7 +527,7 @@
             if (scorePercent >= 80) {
                 resultPage.customText.innerHTML = `<strong>Selamat!</strong> Kamu mendapatkan merchandise tambahan dan berkesempatan untuk melakukan <i>lucky draw</i>. Silahkan hubungi tim dari Multibangun!`;
             } else {
-                resultPage.customText.innerHTML = `<strong>Pengetahuan Anda sudah teruji!</strong> Tunggu sampai tanggal 12 November 2025 pukul 15.00 WIB untuk lihat apakah kamu pemenang Sepeda Listrik dari Multibangun!!`;
+                resultPage.customText.innerHTML = `<strong>Pengetahuan Anda sudah teruji!</strong> Asah terus kemampuan Anda untuk menjadi Master Engineer. Anda berkesempatan melakukan <i>lucky draw</i>, silahkan hubungi tim dari Multibangun!`;
             }
 
             showPage('page-result');
@@ -643,9 +643,6 @@
     </script>
 </body>
 </html>
-
-
-
 
 
 

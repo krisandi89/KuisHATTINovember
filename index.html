@@ -470,6 +470,17 @@
                 selectedAnswerButton.classList.add('bg-red-100', 'border-red-500', 'text-red-800', 'font-semibold');
                 quizPage.feedbackText.textContent = 'SALAH!';
                 quizPage.feedbackText.style.color = 'var(--wrong-color)';
+                
+                // --- FITUR BARU: Tampilkan jawaban yang benar ---
+                const allOptionButtons = document.querySelectorAll('#answer-options button');
+                allOptionButtons.forEach(btn => {
+                    const optionText = btn.querySelector('.flex-grow').textContent;
+                    if (optionText === correctAnwer) {
+                        // Tambahkan style "Correct" (Hijau) ke jawaban yang benar
+                        btn.classList.add('bg-green-100', 'border-green-500', 'text-green-800', 'font-semibold');
+                    }
+                });
+                // --- AKHIR FITUR BARU ---
             }
             
             // Ubah tombol Next di soal terakhir
@@ -643,8 +654,4 @@
     </script>
 </body>
 </html>
-
-
-
-
 

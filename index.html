@@ -68,7 +68,7 @@
         <!-- Halaman 1: Registrasi -->
         <div id="page-register" class="page active p-8 md:p-12">
             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-4">SEBERAPA ENGINEER ANDA?</h1>
-            <p class="text-center text-gray-600 mb-8">Selamat datang di kuis Multibangun Engineering Hub!</p>
+            <p class="text-center text-gray-600 mb-8">Selamat datang di kuis PT Multibangun Rekatama Patria!</p>
             
             <form id="register-form" class="space-y-6">
                 <div>
@@ -114,22 +114,22 @@
                 <div>
                     <div class="badge badge-master">M</div>
                     <h3 class="font-bold mt-2">Master</h3>
-                    <p class="text-sm text-gray-600">Skor 93-100</p>
+                    <p class="text-sm text-gray-600">Skor 90-100</p>
                 </div>
                 <div>
                     <div class="badge badge-senior">P</div>
                     <h3 class="font-bold mt-2">Pro</h3>
-                    <p class="text-sm text-gray-600">Skor 80-86</p>
+                    <p class="text-sm text-gray-600">Skor 80</p>
                 </div>
                 <div>
                     <div class="badge badge-junior">R</div>
                     <h3 class="font-bold mt-2">Rookie</h3>
-                    <p class="text-sm text-gray-600">Skor 53-73</p>
+                    <p class="text-sm text-gray-600">Skor 60-70</p>
                 </div>
                 <div>
                     <div class="badge badge-trainee">N</div>
                     <h3 class="font-bold mt-2">Newbie</h3>
-                    <p class="text-sm text-gray-600">Skor &lt; 53</p>
+                    <p class="text-sm text-gray-600">Skor &lt; 60</p>
                 </div>
             </div>
              <p class="text-sm text-center text-gray-600 mt-4">Merchandise tambahan menanti untuk level <strong>Pro Engineer</strong> ke atas!</p>
@@ -199,8 +199,8 @@
             <div class="my-6 bg-gray-50 p-4 rounded-lg">
                 <div class="flex justify-around">
                     <div>
-                        <p class="text-sm text-gray-600">Skor Akhir</p>
-                        <p id="result-score-text" class="text-3xl font-bold text-gray-900">0 / 15</p>
+                        <p class="text-sm text-gray-600">Skor Akhir (0-100)</p>
+                        <p id="result-score-text" class="text-3xl font-bold text-gray-900">0</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-600">Waktu Selesai</p>
@@ -240,7 +240,7 @@
                             <th class="p-3 font-semibold text-gray-700">Peringkat</th>
                             <th class="p-3 font-semibold text-gray-700">Nama</th>
                             <th class="p-3 font-semibold text-gray-700">Perusahaan</th>
-                            <th class="p-3 font-semibold text-gray-700">Skor</th>
+                            <th class="p-3 font-semibold text-gray-700">Skor (0-100)</th>
                             <th class="p-3 font-semibold text-gray-700">Waktu (detik)</th>
                         </tr>
                     </thead>
@@ -270,7 +270,7 @@
         // !!! PENTING: Ganti dengan URL Google Apps Script Anda yang sudah di-deploy !!!
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcrR2PosJmm-p_V8hTqS5k17wp4ubt1m8VOEFHSd-ShHDfdw9OmX8xNNuzWUQSCRs/exec';
         
-        const TOTAL_QUESTIONS = 15;
+        const TOTAL_QUESTIONS = 10;
         const DEADLINE_DATE = new Date('2025-11-12T15:00:00');
         
         // --- Variabel State Aplikasi ---
@@ -505,10 +505,10 @@
         function showResult() {
             endTime = new Date();
             finalDuration = (endTime - startTime) / 1000; // Durasi dalam detik
-            const scorePercent = (userScore / TOTAL_QUESTIONS) * 100;
+            const scorePercent = Math.round((userScore / TOTAL_QUESTIONS) * 100);
 
             resultPage.userName.textContent = `${currentUser.nama}!`;
-            resultPage.scoreText.textContent = `${userScore} / ${TOTAL_QUESTIONS}`;
+            resultPage.scoreText.textContent = `${scorePercent}`;
             resultPage.durationText.textContent = `${finalDuration.toFixed(1)}s`;
 
             // Logika Badge dan Teks Kustom
@@ -516,15 +516,15 @@
             let badgeClass = 'badge-trainee';
             let badgeLetter = 'N';
             
-            if (scorePercent >= 93) { // 14-15 benar
+            if (scorePercent >= 90) { // 9-10 benar
                 level = 'Master Engineer';
                 badgeClass = 'badge-master';
                 badgeLetter = 'M';
-            } else if (scorePercent >= 80) { // 12-13 benar
+            } else if (scorePercent >= 80) { // 8 benar
                 level = 'Pro Engineer';
                 badgeClass = 'badge-senior';
                 badgeLetter = 'P';
-            } else if (scorePercent >= 53) { // 8-11 benar
+            } else if (scorePercent >= 60) { // 6-7 benar
                 level = 'Rookie Engineer';
                 badgeClass = 'badge-junior';
                 badgeLetter = 'R';
@@ -538,7 +538,7 @@
             if (scorePercent >= 80) {
                 resultPage.customText.innerHTML = `<strong>Selamat!</strong> Kamu mendapatkan merchandise tambahan dan berkesempatan untuk melakukan <i>lucky draw</i>. Silahkan hubungi tim dari Multibangun!`;
             } else {
-                resultPage.customText.innerHTML = `<strong>Pengetahuan Anda sudah teruji!</strong> Tunggu sampai tanggal 12 November 2025 pukul 15.00 WIB untuk lihat apakah kamu pemenang Sepeda Listrik dari Multibangun!`;
+                resultPage.customText.innerHTML = `<strong>Pengetahuan Anda sudah teruji!</strong> Asah terus kemampuan Anda untuk menjadi Master Engineer. Anda berkesempatan melakukan <i>lucky draw</i>, silahkan hubungi tim dari Multibangun!`;
             }
 
             showPage('page-result');
@@ -614,11 +614,13 @@
                         tr.style.backgroundColor = 'var(--main-color-light)';
                     }
                     
+                    const percentScore = Math.round((row.score / TOTAL_QUESTIONS) * 100);
+
                     tr.innerHTML = `
                         <td class="p-3">${index + 1}</td>
                         <td class="p-3">${row.name}</td>
                         <td class="p-3">${row.company}</td>
-                        <td class="p-3">${row.score} / ${TOTAL_QUESTIONS}</td>
+                        <td class="p-3">${percentScore}</td>
                         <td class="p-3">${Number(row.duration).toFixed(1)}s</td>
                     `;
                     leaderboardPage.body.appendChild(tr);
@@ -654,6 +656,5 @@
     </script>
 </body>
 </html>
-
 
 

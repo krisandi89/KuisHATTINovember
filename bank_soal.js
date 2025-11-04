@@ -29,7 +29,7 @@ const questionBank = [
             "Batas Susut (Shrinkage Limit)",
             "Indeks Plastisitas (Plasticity Index)"
         ],
-        answer: "Batas Susut (Shrinkage Limit)"
+        answer: "Batas Plastis (Plastic Limit)"
     },
     {
         question: "Indeks Plastisitas (PI) dihitung dengan rumus...",
@@ -968,3 +968,4 @@ const questionBank = [
         answer: "Tahanan konus (qc) dan Tahanan gesek lokal (fs)"
     }
 ];
+

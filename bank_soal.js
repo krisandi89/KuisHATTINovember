@@ -708,16 +708,6 @@ const questionBank = [
         answer: "FS = cu / (γH * sin(β) * cos(β))" // τ = γH*sinβ*cosβ; τf = cu
     },
     {
-        question: "Metode analisis stabilitas lereng yang paling sederhana untuk bidang longsor lingkaran pada lempung jenuh (φu=0) adalah...",
-        options: [
-            "Metode Bishop yang Disederhanakan",
-            "Metode Janbu",
-            "Metode Fellenius (Metode Irisan Biasa)",
-            "Metode Massa (Mass Procedure)"
-        ],
-        answer: "Metode Massa (Mass Procedure)" // FS = (cu * L * R) / (W * x)
-    },
-    {
         question: "Metode Fellenius (Metode Irisan Biasa) mengabaikan...",
         options: [
             "Gaya geser antar irisan.",
@@ -742,10 +732,10 @@ const questionBank = [
         options: [
             "Metode Fellenius",
             "Metode Bishop yang Disederhanakan",
-            "Metode Spencer",
+            "Metode Morgenstern & Price",
             "Metode Culmann"
         ],
-        answer: "Metode Spencer"
+        answer: "Metode Morgenstern & Price"
     },
     {
         question: "Apa yang dimaksud dengan 'Daya Dukung Ultimit' (Ultimate Bearing Capacity, qu) dari pondasi?",
@@ -968,4 +958,5 @@ const questionBank = [
         answer: "Tahanan konus (qc) dan Tahanan gesek lokal (fs)"
     }
 ];
+
 

@@ -36,7 +36,7 @@
             
             <!-- Timer Hitung Mundur -->
             <div class="text-center bg-yellow-100 border border-yellow-300 text-yellow-800 p-4 rounded-lg mb-6">
-                <h3 class="font-bold">Batas Waktu Pengumpulan Kuis:</h3>
+                <h3 class="font-bold">Batas Waktu Pemenang Hadiah:</h3>
                 <div id="countdown-timer" class="text-xl font-bold">12 November 2025, 15:00 WIB</div>
             </div>
             
@@ -48,7 +48,8 @@
                             <th class="p-3 font-semibold text-gray-700">Peringkat</th>
                             <th class="p-3 font-semibold text-gray-700">Nama</th>
                             <th class="p-3 font-semibold text-gray-700">Perusahaan</th>
-                            <th class="p-3 font-semibold text-gray-700">Skor</th>
+                            <!-- REVISI 2: Ubah header tabel -->
+                            <th class="p-3 font-semibold text-gray-700">Skor (0-100)</th>
                             <th class="p-3 font-semibold text-gray-700">Waktu (detik)</th>
                         </tr>
                     </thead>
@@ -74,7 +75,8 @@
         // !!! PENTING: Ganti dengan URL Google Apps Script Anda yang sudah di-deploy !!!
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcrR2PosJmm-p_V8hTqS5k17wp4ubt1m8VOEFHSd-ShHDfdw9OmX8xNNuzWUQSCRs/exec';
         
-        const TOTAL_QUESTIONS = 15;
+        // REVISI 1: Ubah TOTAL_QUESTIONS menjadi 10
+        const TOTAL_QUESTIONS = 10;
         const REFRESH_INTERVAL = 15000; // 15 detik
 
         // --- Selektor DOM ---
@@ -110,11 +112,15 @@
                     
                     // Logika highlight user tidak diperlukan di halaman publik ini
                     
+                    // REVISI 2: Hitung skor persentase
+                    const percentScore = Math.round((row.score / TOTAL_QUESTIONS) * 100);
+
                     tr.innerHTML = `
                         <td class="p-3">${index + 1}</td>
                         <td class="p-3">${row.name}</td>
                         <td class="p-3">${row.company}</td>
-                        <td class="p-3">${row.score} / ${TOTAL_QUESTIONS}</td>
+                        <!-- REVISI 2: Tampilkan skor persentase -->
+                        <td class="p-3">${percentScore}</td>
                         <td class="p-3">${Number(row.duration).toFixed(1)}s</td>
                     `;
                     leaderboardBody.appendChild(tr);

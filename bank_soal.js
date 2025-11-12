@@ -415,16 +415,6 @@ const questionBank = [
         answer: "45.95 kN/m²" // σ' = (γsat - γw) * H = (19 - 9.81) * 5 = 45.95
     },
     {
-        question: "Jika muka air tanah pada soal sebelumnya turun ke dasar lapisan (tanah menjadi basah, γ = 18 kN/m³), berapa tegangan efektif (σ') di dasar lapisan?",
-        options: [
-            "90.0 kN/m²",
-            "40.95 kN/m²",
-            "18.0 kN/m²",
-            "0 kN/m²"
-        ],
-        answer: "90.0 kN/m²" // Jika MAT di dasar, u = 0. Maka σ' = σ = γ * H = 18 * 5 = 90
-    },
-    {
         question: "Peningkatan tegangan vertikal (Δσz) di bawah pusat pondasi lingkaran fleksibel berdiameter B dengan beban merata q adalah...",
         options: [
             "Δσz = q * (1 - (z / (R² + z²)^0.5)³)",
@@ -958,5 +948,6 @@ const questionBank = [
         answer: "Tahanan konus (qc) dan Tahanan gesek lokal (fs)"
     }
 ];
+
 
 
